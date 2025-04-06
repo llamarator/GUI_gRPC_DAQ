@@ -1,0 +1,73 @@
+version: '2.4'
+services:
+  gateway:
+    build: ./router
+    ports:
+      - "5000:5000"
+    cap_add:
+      - NET_RAW
+    networks:
+      my_network:
+        ipv4_address: 10.89.0.10
+
+  destination:
+    image: python:3
+    command: ["python3", "-m", "http.server", "6000"]
+    networks:
+      my_network:
+        ipv4_address: 10.89.0.20
+
+  control:
+    build: ./control
+    ports:
+      - "8080:8080"
+    networks:
+      my_network:
+        ipv4_address: 10.89.0.30
+
+  control-frontend:
+    build: ./control/frontend
+    ports:
+      - "3000:3000"
+    networks:
+      my_network:
+        ipv4_address: 10.89.0.31
+  control-backend:
+    build: ./control/backend
+    ports:
+      - "8000:8000"
+    networks:
+      my_network:
+        ipv4_address: 10.89.0.32
+  control-grpc:
+    build: ./control/grpc
+    ports:
+      - "50051:50051"
+    networks:
+      my_network:
+        ipv4_address: 10.89.0.33
+
+
+  sql:
+    image: docker.io/library/postgres:latest
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydb
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      my_network:
+        ipv4_address: 10.89.0.40
+
+networks:
+  my_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: "10.89.0.0/24"
+
+volumes:
+  pgdata:

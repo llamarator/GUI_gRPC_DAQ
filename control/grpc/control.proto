@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package control;
+
+service ControlService {
+    rpc GetData (Empty) returns (DataResponse);
+    rpc SendData (DataRequest) returns (Response);
+}
+
+message Empty {}
+
+message DataResponse {
+    string estado = 1;
+    repeated int32 valores = 2;
+}
+
+message DataRequest {
+    string mensaje = 1;
+}
+
+message Response {
+    bool success = 1;
+    string recibido = 2;
+}

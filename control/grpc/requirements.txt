@@ -1,0 +1,7 @@
+werkzeug==2.2.3
+grpcio==1.54.0
+grpcio-tools==1.54.0
+fastapi==0.95.0
+#futures
+#time
+
