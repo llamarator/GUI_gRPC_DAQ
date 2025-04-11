@@ -1,0 +1,92 @@
+:root {
+  /* Configuración base de tipografía y colores */
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  
+  /* Esquema de color para soportar light y dark */
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+  
+  /* Optimización en la renderización del texto */
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  /* Estilo por defecto para enlaces */
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+
+a:hover {
+  /* Color al pasar el cursor sobre los enlaces */
+  color: #535bf2;
+}
+
+body {
+  /* Se quitan márgenes y se centra el contenido de forma responsiva */
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  /* Estilos para encabezados: tamaño y interlineado */
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  /* Botones con borde redondeado, padding y transición en el borde */
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+button:hover {
+  /* Cambio en el borde al pasar el cursor */
+  border-color: #646cff;
+}
+
+button:focus,
+button:focus-visible {
+  /* Indicador visual en estados de foco para accesibilidad */
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: dark) {
+  /* Ajustes para el modo oscuro: invertir colores para mejor contraste */
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  
+  a:hover {
+    color: #747bff;
+  }
+  
+  button {
+    background-color: #f9f9f9;
+  }
+}
+.chart-container {
+  position: fixed;
+  top: 0;         /* Fijado al tope */
+  left: 0;        /* O ajusta left/right según convenga */
+  width: 100%;    /* O el ancho que necesites */
+  z-index: 100;   /* Asegura que se muestre por encima de otros elementos */
+  background-color: #242424; /* Opcional, para mantener la consistencia visual */
+}

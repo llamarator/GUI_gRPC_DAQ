@@ -1,0 +1,9 @@
+werkzeug==2.2.3
+fastapi==0.95.0
+grpcio==1.62.0
+grpcio-tools==1.62.0
+psycopg2-binary==2.9.9
+
+#futures
+#time
+

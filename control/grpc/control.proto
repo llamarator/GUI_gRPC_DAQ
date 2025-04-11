@@ -1,0 +1,107 @@
+syntax = "proto3";
+
+service ControlService {
+  rpc GetData (DataRequest) returns (DataResponse) {}
+  rpc SendData (DataRequest) returns (Response) {}
+  rpc GetHistoricalData (HistoricalDataRequest) returns (HistoricalDataResponse) {}
+  // Add this new streaming RPC
+  rpc StreamData (StreamRequest) returns (stream DataResponse) {}
+}
+
+message Empty {}
+
+message DataRequest {
+  string mensaje = 1;
+  int32 interval = 2;  // New field for interval in milliseconds
+}
+
+message DataResponse {
+  string estado = 1;
+  repeated int32 valores = 2;
+  int64 timestamp = 3; // Add timestamp for each response
+}
+
+message Response {
+  bool success = 1;
+  string recibido = 2;
+}
+
+message HistoricalDataRequest {
+  string timeRange = 1;  // "1h", "6h", "24h", "7d", "30d", "all"
+}
+
+message HistoricalDataItem {
+  int32 value = 1;
+  string timestamp = 2;
+  string server = 3;
+}
+
+message HistoricalDataResponse {
+  bool success = 1;
+  repeated HistoricalDataItem data = 2;
+}
+
+// Status monitoring messages
+message StatusRequest {
+  string serverName = 1;
+}
+
+message StatusResponse {
+  enum Status {
+    UNKNOWN = 0;
+    HEALTHY = 1;
+    DEGRADED = 2;
+    DOWN = 3;
+  }
+  Status status = 1;
+  string message = 2;
+  float uptime = 3;  // uptime in hours
+  int32 activeConnections = 4;
+}
+
+// Authentication and authorization
+message AuthRequest {
+  string username = 1;
+  string password = 2;  // Consider using a more secure approach
+}
+
+message AuthResponse {
+  bool success = 1;
+  string token = 2;
+  int64 expiry = 3;  // Unix timestamp
+}
+
+// Configuration management
+message ConfigRequest {
+  string configName = 1;
+}
+
+message ConfigResponse {
+  bool success = 1;
+  map<string, string> configs = 2;
+}
+
+message UpdateConfigRequest {
+  map<string, string> configs = 1;
+}
+
+// Batch operations
+message BatchDataRequest {
+  repeated DataRequest requests = 1;
+}
+
+message BatchDataResponse {
+  repeated DataResponse responses = 1;
+}
+
+message StreamRequest {
+  int32 interval = 1;  // How often to send updates in milliseconds
+  string clientId = 2; // Optional client identifier
+}
+
+// Error handling
+message ErrorDetails {
+  int32 code = 1;
+  string message = 2;
+  string details = 3;
+}

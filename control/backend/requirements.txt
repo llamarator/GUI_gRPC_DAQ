@@ -1,0 +1,8 @@
+uvicorn
+fastapi==0.115.11
+grpcio-tools==1.54.0
+grpcio==1.62.1
+psycopg2-binary==2.9.9
+python-dotenv==1.0.1
+pydantic==2.6.4
+
