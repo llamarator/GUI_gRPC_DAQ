@@ -1,5 +1,36 @@
-version: '2.4'
+version: '3.9'
 services:
+  sql:
+    build:
+      context: ./sql  # Ruta al directorio que contiene el Dockerfile
+    container_name: sql-db
+    environment:
+      - DB_HOST=sql
+      - DB_PORT=5432
+      - DB_NAME=mydb
+      - DB_USER=user
+      - DB_PASSWORD=password
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      gateway_network:
+        ipv4_address: 172.90.0.40
+
+
+  nginx-router:
+    build: ./nginx
+    ports:
+      - "8080:80"      # Puerto HTTP estándar
+    networks:
+      gateway_network:
+        ipv4_address: 172.90.0.11
+    depends_on:
+      - control-frontend
+      - control-backend
+      - control-grpc
+
   gateway:
     build: ./router
     ports:
@@ -7,67 +38,50 @@ services:
     cap_add:
       - NET_RAW
     networks:
-      my_network:
-        ipv4_address: 10.89.0.10
+      gateway_network:
+        ipv4_address: 172.90.0.10
 
-  destination:
-    image: python:3
-    command: ["python3", "-m", "http.server", "6000"]
-    networks:
-      my_network:
-        ipv4_address: 10.89.0.20
-
-  control:
-    build: ./control
-    ports:
-      - "8080:8080"
-    networks:
-      my_network:
-        ipv4_address: 10.89.0.30
 
   control-frontend:
     build: ./control/frontend
     ports:
       - "3000:3000"
     networks:
-      my_network:
-        ipv4_address: 10.89.0.31
+      gateway_network:
+        ipv4_address: 172.90.0.31
   control-backend:
     build: ./control/backend
+    environment:
+      DB_HOST: sql
+      DB_PORT: 5432
+      DB_NAME: mydb
+      DB_USER: user
+      DB_PASSWORD: password
     ports:
       - "8000:8000"
     networks:
-      my_network:
-        ipv4_address: 10.89.0.32
+      gateway_network:
+        ipv4_address: 172.90.0.32
   control-grpc:
     build: ./control/grpc
+    environment:
+      DB_HOST: sql
+      DB_PORT: 5432
+      DB_NAME: mydb
+      DB_USER: user
+      DB_PASSWORD: password
     ports:
       - "50051:50051"
     networks:
-      my_network:
-        ipv4_address: 10.89.0.33
-
-
-  sql:
-    image: docker.io/library/postgres:latest
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: mydb
-    ports:
-      - "5432:5432"
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-    networks:
-      my_network:
-        ipv4_address: 10.89.0.40
+      gateway_network:
+        ipv4_address: 172.90.0.33
 
 networks:
-  my_network:
+  gateway_network:
     driver: bridge
     ipam:
       config:
-        - subnet: "10.89.0.0/24"
+        - subnet: 172.90.0.0/24
 
 volumes:
   pgdata:
