@@ -13,21 +13,59 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rcontrol.proto\x12\x07\x63ontrol\"\x07\n\x05\x45mpty\"/\n\x0c\x44\x61taResponse\x12\x0e\n\x06\x65stado\x18\x01 \x01(\t\x12\x0f\n\x07valores\x18\x02 \x03(\x05\"\x1e\n\x0b\x44\x61taRequest\x12\x0f\n\x07mensaje\x18\x01 \x01(\t\"-\n\x08Response\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x10\n\x08recibido\x18\x02 \x01(\t2w\n\x0e\x43ontrolService\x12\x30\n\x07GetData\x12\x0e.control.Empty\x1a\x15.control.DataResponse\x12\x33\n\x08SendData\x12\x14.control.DataRequest\x1a\x11.control.Responseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rcontrol.proto\"\x07\n\x05\x45mpty\"0\n\x0b\x44\x61taRequest\x12\x0f\n\x07mensaje\x18\x01 \x01(\t\x12\x10\n\x08interval\x18\x02 \x01(\x05\"B\n\x0c\x44\x61taResponse\x12\x0e\n\x06\x65stado\x18\x01 \x01(\t\x12\x0f\n\x07valores\x18\x02 \x03(\x05\x12\x11\n\ttimestamp\x18\x03 \x01(\x03\"-\n\x08Response\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x10\n\x08recibido\x18\x02 \x01(\t\"*\n\x15HistoricalDataRequest\x12\x11\n\ttimeRange\x18\x01 \x01(\t\"F\n\x12HistoricalDataItem\x12\r\n\x05value\x18\x01 \x01(\x05\x12\x11\n\ttimestamp\x18\x02 \x01(\t\x12\x0e\n\x06server\x18\x03 \x01(\t\"L\n\x16HistoricalDataResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12!\n\x04\x64\x61ta\x18\x02 \x03(\x0b\x32\x13.HistoricalDataItem\"#\n\rStatusRequest\x12\x12\n\nserverName\x18\x01 \x01(\t\"\xb0\x01\n\x0eStatusResponse\x12&\n\x06status\x18\x01 \x01(\x0e\x32\x16.StatusResponse.Status\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x0e\n\x06uptime\x18\x03 \x01(\x02\x12\x19\n\x11\x61\x63tiveConnections\x18\x04 \x01(\x05\":\n\x06Status\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x0b\n\x07HEALTHY\x10\x01\x12\x0c\n\x08\x44\x45GRADED\x10\x02\x12\x08\n\x04\x44OWN\x10\x03\"1\n\x0b\x41uthRequest\x12\x10\n\x08username\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\">\n\x0c\x41uthResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\r\n\x05token\x18\x02 \x01(\t\x12\x0e\n\x06\x65xpiry\x18\x03 \x01(\x03\"#\n\rConfigRequest\x12\x12\n\nconfigName\x18\x01 \x01(\t\"\x80\x01\n\x0e\x43onfigResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12-\n\x07\x63onfigs\x18\x02 \x03(\x0b\x32\x1c.ConfigResponse.ConfigsEntry\x1a.\n\x0c\x43onfigsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"y\n\x13UpdateConfigRequest\x12\x32\n\x07\x63onfigs\x18\x01 \x03(\x0b\x32!.UpdateConfigRequest.ConfigsEntry\x1a.\n\x0c\x43onfigsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"2\n\x10\x42\x61tchDataRequest\x12\x1e\n\x08requests\x18\x01 \x03(\x0b\x32\x0c.DataRequest\"5\n\x11\x42\x61tchDataResponse\x12 \n\tresponses\x18\x01 \x03(\x0b\x32\r.DataResponse\"3\n\rStreamRequest\x12\x10\n\x08interval\x18\x01 \x01(\x05\x12\x10\n\x08\x63lientId\x18\x02 \x01(\t\">\n\x0c\x45rrorDetails\x12\x0c\n\x04\x63ode\x18\x01 \x01(\x05\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x0f\n\x07\x64\x65tails\x18\x03 \x01(\t2\xda\x01\n\x0e\x43ontrolService\x12(\n\x07GetData\x12\x0c.DataRequest\x1a\r.DataResponse\"\x00\x12%\n\x08SendData\x12\x0c.DataRequest\x1a\t.Response\"\x00\x12\x46\n\x11GetHistoricalData\x12\x16.HistoricalDataRequest\x1a\x17.HistoricalDataResponse\"\x00\x12/\n\nStreamData\x12\x0e.StreamRequest\x1a\r.DataResponse\"\x00\x30\x01\x62\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'control_pb2', globals())
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  _EMPTY._serialized_start=26
-  _EMPTY._serialized_end=33
-  _DATARESPONSE._serialized_start=35
-  _DATARESPONSE._serialized_end=82
-  _DATAREQUEST._serialized_start=84
-  _DATAREQUEST._serialized_end=114
-  _RESPONSE._serialized_start=116
-  _RESPONSE._serialized_end=161
-  _CONTROLSERVICE._serialized_start=163
-  _CONTROLSERVICE._serialized_end=282
+  _CONFIGRESPONSE_CONFIGSENTRY._options = None
+  _CONFIGRESPONSE_CONFIGSENTRY._serialized_options = b'8\001'
+  _UPDATECONFIGREQUEST_CONFIGSENTRY._options = None
+  _UPDATECONFIGREQUEST_CONFIGSENTRY._serialized_options = b'8\001'
+  _EMPTY._serialized_start=17
+  _EMPTY._serialized_end=24
+  _DATAREQUEST._serialized_start=26
+  _DATAREQUEST._serialized_end=74
+  _DATARESPONSE._serialized_start=76
+  _DATARESPONSE._serialized_end=142
+  _RESPONSE._serialized_start=144
+  _RESPONSE._serialized_end=189
+  _HISTORICALDATAREQUEST._serialized_start=191
+  _HISTORICALDATAREQUEST._serialized_end=233
+  _HISTORICALDATAITEM._serialized_start=235
+  _HISTORICALDATAITEM._serialized_end=305
+  _HISTORICALDATARESPONSE._serialized_start=307
+  _HISTORICALDATARESPONSE._serialized_end=383
+  _STATUSREQUEST._serialized_start=385
+  _STATUSREQUEST._serialized_end=420
+  _STATUSRESPONSE._serialized_start=423
+  _STATUSRESPONSE._serialized_end=599
+  _STATUSRESPONSE_STATUS._serialized_start=541
+  _STATUSRESPONSE_STATUS._serialized_end=599
+  _AUTHREQUEST._serialized_start=601
+  _AUTHREQUEST._serialized_end=650
+  _AUTHRESPONSE._serialized_start=652
+  _AUTHRESPONSE._serialized_end=714
+  _CONFIGREQUEST._serialized_start=716
+  _CONFIGREQUEST._serialized_end=751
+  _CONFIGRESPONSE._serialized_start=754
+  _CONFIGRESPONSE._serialized_end=882
+  _CONFIGRESPONSE_CONFIGSENTRY._serialized_start=836
+  _CONFIGRESPONSE_CONFIGSENTRY._serialized_end=882
+  _UPDATECONFIGREQUEST._serialized_start=884
+  _UPDATECONFIGREQUEST._serialized_end=1005
+  _UPDATECONFIGREQUEST_CONFIGSENTRY._serialized_start=836
+  _UPDATECONFIGREQUEST_CONFIGSENTRY._serialized_end=882
+  _BATCHDATAREQUEST._serialized_start=1007
+  _BATCHDATAREQUEST._serialized_end=1057
+  _BATCHDATARESPONSE._serialized_start=1059
+  _BATCHDATARESPONSE._serialized_end=1112
+  _STREAMREQUEST._serialized_start=1114
+  _STREAMREQUEST._serialized_end=1165
+  _ERRORDETAILS._serialized_start=1167
+  _ERRORDETAILS._serialized_end=1229
+  _CONTROLSERVICE._serialized_start=1232
+  _CONTROLSERVICE._serialized_end=1450
 # @@protoc_insertion_point(module_scope)

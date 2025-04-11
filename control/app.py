@@ -21,7 +21,7 @@ def get_data():
     # Simulación de consulta de datos (por ejemplo, desde el servidor SQL)
     datos = {
         'estado': 'OK',
-        'valores': [1, 2, 3, 4, 5]
+        'valores': [1, 2, 3, 4, 5,6,7]
     }
     return jsonify(datos)
 
