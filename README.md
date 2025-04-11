@@ -45,3 +45,4 @@ Ensure you have the following software installed before setting up the project:
    ```bash
    git clone https://github.com/llamarator/GUI_gRPC_DAQ.git
    cd GUI_gRPC_DAQ
+   sh init.sh
