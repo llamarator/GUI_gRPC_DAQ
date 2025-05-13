@@ -15,7 +15,7 @@ echo -e "${YELLOW}🧹 Removing all containers...${NC}"
 podman container rm --all
 
 echo -e "${YELLOW}🧹 Removing all networks...${NC}"
-podman network rm -f gateway_gateway_network
+podman network ls --format "{{.Name}}" | grep -vE '^(podman|bridge|host|none)$' | xargs -r podman network rm
 
 echo -e "${GREEN}⏳ Waiting before build...${NC}"
 sleep 2
@@ -51,3 +51,7 @@ else
     echo -e "${RED}❌ Something went wrong while starting the containers.${NC}"
 fi
 
+
+
+echo -e "${YELLOW} Checking all the containers and services ${NC}"
+sh check_services.sh 
