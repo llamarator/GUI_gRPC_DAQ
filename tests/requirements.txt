@@ -1,0 +1,10 @@
+robotframework==7.0.0
+robotframework-requests==0.9.5
+robotframework-seleniumlibrary==6.1.0
+requests==2.31.0
+grpcio==1.59.3
+grpcio-tools==1.59.3
+psycopg2-binary==2.9.9
+robotframework-databaselibrary==1.4.0
+robotframework-httplibrary==0.4.2
+robotframework-pythonlibcore==4.2.0
